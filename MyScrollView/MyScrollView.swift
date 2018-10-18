@@ -14,7 +14,7 @@ class MyScrollView: UIView {
     @IBInspectable
     var contentSize : CGSize = CGSize() {
         didSet {
-            self.frame.size = contentSize
+            frame.size = contentSize
         }
     }
     
@@ -26,7 +26,19 @@ class MyScrollView: UIView {
     func pan(translation: CGPoint){
         self.center = CGPoint(x:self.center.x + translation.x,
             y:self.center.y + translation.y)
-        
+        if (self.frame.origin.x > 0){
+            self.frame.origin.x = 0
+        }
+        if (self.frame.origin.y > 0){
+            self.frame.origin.y = 0
+        }
+        let screenSize = UIScreen.main.bounds
+        if (screenSize.width - self.frame.origin.x > contentSize.width){
+            self.frame.origin.x = screenSize.width - contentSize.width
+        }
+        if (screenSize.height - self.frame.origin.y > contentSize.height){
+            self.frame.origin.y = screenSize.height - contentSize.height
+        }
     }
     
     

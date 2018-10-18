@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController , UIGestureRecognizerDelegate {
 
     
     var gestureRecognizer: UIPanGestureRecognizer!
@@ -16,18 +16,22 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let screenSize = UIScreen.main.bounds
         mainView = MyScrollView()
-        mainView.contentSize = CGSize(width: 500, height: 500)
+        mainView.contentSize = CGSize(width: screenSize.width * 1.5, height: screenSize.height * 1.5)
         mainView.backgroundColor = UIColor.gray
         view.addSubview(mainView)
         
+        gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
+        gestureRecognizer.delegate = self
+        mainView.addGestureRecognizer(gestureRecognizer)
         
+        /**
         let widthConstraint = NSLayoutConstraint(item: mainView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.8, constant: 0.0)
         view.addConstraint(widthConstraint)
         let heightConstraint = NSLayoutConstraint(item: mainView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0.8, constant: 0.0)
         view.addConstraint(heightConstraint)
-        
+        **/
         addView(rect: CGRect(x: 20, y: 20, width: 100, height: 100) , color: .red)
         addView(rect: CGRect(x: 150, y: 150, width: 150, height: 200) , color: .green)
         addView(rect: CGRect(x: 40, y: 400, width: 200, height: 150) , color: .blue)
@@ -40,8 +44,8 @@ class ViewController: UIViewController {
     func addView(rect: CGRect, color: UIColor){
         let subView = UIView()
         subView.frame = rect
-        
-        //mainView.addSubview(subView)
+        subView.backgroundColor = color
+        mainView.addSubview(subView)
         
         
     }
@@ -73,4 +77,6 @@ class ViewController: UIViewController {
 
 
 }
+
+
 
