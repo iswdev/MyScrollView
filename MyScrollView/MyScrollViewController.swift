@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController , UIGestureRecognizerDelegate {
+class MyScrollViewController: UIViewController , UIGestureRecognizerDelegate {
 
     
     var gestureRecognizer: UIPanGestureRecognizer!
