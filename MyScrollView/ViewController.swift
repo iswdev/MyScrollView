@@ -16,22 +16,21 @@ class ViewController: UIViewController , UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //get screen size
         let screenSize = UIScreen.main.bounds
+        
+        //create main View
         mainView = MyScrollView()
         mainView.contentSize = CGSize(width: screenSize.width * 1.5, height: screenSize.height * 1.5)
-        mainView.backgroundColor = UIColor.gray
+        mainView.backgroundColor = UIColor.white
         view.addSubview(mainView)
         
+        // add gesture recognizer
         gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
         gestureRecognizer.delegate = self
         mainView.addGestureRecognizer(gestureRecognizer)
         
-        /**
-        let widthConstraint = NSLayoutConstraint(item: mainView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.8, constant: 0.0)
-        view.addConstraint(widthConstraint)
-        let heightConstraint = NSLayoutConstraint(item: mainView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0.8, constant: 0.0)
-        view.addConstraint(heightConstraint)
-        **/
+        // add subviews
         addView(rect: CGRect(x: 20, y: 20, width: 100, height: 100) , color: .red)
         addView(rect: CGRect(x: 150, y: 150, width: 150, height: 200) , color: .green)
         addView(rect: CGRect(x: 40, y: 400, width: 200, height: 150) , color: .blue)
@@ -55,9 +54,6 @@ class ViewController: UIViewController , UIGestureRecognizerDelegate {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
