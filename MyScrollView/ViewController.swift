@@ -17,15 +17,16 @@ class ViewController: UIViewController , UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //get screen size
-        let screenSize = UIScreen.main.bounds
+        //let screenSize = UIScreen.main.bounds
         
         //create main View
         mainView = MyScrollView()
-        mainView.contentSize = CGSize(width: screenSize.width * 1.5, height: screenSize.height * 1.5)
-        mainView.backgroundColor = UIColor.white
+        mainView.contentSize = CGSize(width: 600, height: 800)
+        mainView.backgroundColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha:1.0)
+        mainView.clipsToBounds = true
         view.addSubview(mainView)
         
-        // add gesture recognizer
+        // add gesture recognizer to mainView
         gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
         gestureRecognizer.delegate = self
         mainView.addGestureRecognizer(gestureRecognizer)
@@ -65,7 +66,7 @@ class ViewController: UIViewController , UIGestureRecognizerDelegate {
         let translation = recognizer.translation(in: self.view)
         if let view = recognizer.view  {
             let scrollView = view as! MyScrollView
-            scrollView.pan(translation: translation)
+            scrollView.handleTranslation(translation: translation)
             
         }
         recognizer.setTranslation(CGPoint.zero, in: self.view)

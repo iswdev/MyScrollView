@@ -23,23 +23,44 @@ class MyScrollView: UIView {
        print("View appear")
     }
     
-    func pan(translation: CGPoint){
-        self.center = CGPoint(x:self.center.x + translation.x,
-            y:self.center.y + translation.y)
-        if (self.frame.origin.x > 0){
-            self.frame.origin.x = 0
-        }
-        if (self.frame.origin.y > 0){
-            self.frame.origin.y = 0
-        }
+    func handleTranslation(translation: CGPoint){
+        
         let screenSize = UIScreen.main.bounds
-        if (screenSize.width - self.frame.origin.x > contentSize.width){
-            self.frame.origin.x = screenSize.width - contentSize.width
+        
+        // move using translation coordinates
+        self.center = CGPoint(x:self.center.x + translation.x,
+                              y:self.center.y + translation.y)
+        
+        var newx = self.frame.origin.x
+        var newy = self.frame.origin.y
+        
+        // check right bound
+        if (screenSize.width - newx > contentSize.width){
+            newx = screenSize.width - self.contentSize.width
         }
-        if (screenSize.height - self.frame.origin.y > contentSize.height){
-            self.frame.origin.y = screenSize.height - contentSize.height
+        // check bottom bound
+        if (screenSize.height - newy > contentSize.height){
+            newy = screenSize.height - self.contentSize.height
         }
+        
+        // check left bound
+        if (newx > 0){
+            newx = 0
+        }
+        // check top bound
+        if (newy > 0){
+            newy = 0
+        }
+        
+        UIView.animate(withDuration: 0.1, animations: {
+            self.frame.origin.x = newx
+            self.frame.origin.y = newy
+        })
+        
+        
     }
+    
+    
     
     
     func autoScroll(amount: CGFloat, step: CGFloat){
@@ -52,7 +73,7 @@ class MyScrollView: UIView {
         }
     }
     
-
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
