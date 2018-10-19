@@ -24,7 +24,7 @@ class MyScrollViewController: UIViewController , UIGestureRecognizerDelegate {
     
     func createMainView( color: UIColor){
         // create main View
-        scrollView = MyScrollView(frame: CGRect(x: 0, y:0, width: 300, height: 300))
+        scrollView = MyScrollView(frame: view.frame)
         scrollView.backgroundColor = color
         view.addSubview(scrollView)
         
