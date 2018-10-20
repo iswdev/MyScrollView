@@ -8,10 +8,9 @@
 
 import UIKit
 
-class MyScrollViewController: UIViewController , UIGestureRecognizerDelegate {
+class MyScrollViewController: UIViewController {
 
     
-//    var gestureRecognizer: UIPanGestureRecognizer!
     var scrollView: MyScrollView!
     
     override func viewDidLoad() {
@@ -19,12 +18,13 @@ class MyScrollViewController: UIViewController , UIGestureRecognizerDelegate {
         
         // main View
         createMainView(color: UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha:1.0))
-
     }
     
     func createMainView( color: UIColor){
         // create main View
         scrollView = MyScrollView(frame: view.frame)
+        // tested with a smaller scrollview
+        // scrollView = MyScrollView(frame: CGRect(x: 50, y: 60, width: 200, height: 300))
         scrollView.backgroundColor = color
         view.addSubview(scrollView)
         
